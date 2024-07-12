@@ -12,19 +12,15 @@
 
 1. 在主页能看见设备上已安装的全部应用，其中系统应用使用红色字体进行标注：
 
-   <img src="C:\1Data\1Projects\Android\PathForbid\README.assets\image-20240712182842836.png" alt="image-20240712182842836" style="zoom:33%;" />
 
 2. 点击想要操作的应用即可查看其私有目录
 
-   <img src="C:\1Data\1Projects\Android\PathForbid\README.assets\image-20240712182957139.png" alt="image-20240712182957139" style="zoom:33%;" />
 
 3. 任意选取一个数据目录进行操作，点击后即进入数据目录文件夹
 
-   <img src="C:\1Data\1Projects\Android\PathForbid\README.assets\image-20240712183108707.png" alt="image-20240712183108707" style="zoom:33%;" />
 
 4. 长按想要操作的文件，选择禁用或解除禁用进行操作
 
-   <img src="C:\1Data\1Projects\Android\PathForbid\README.assets\image-20240712183429853.png" alt="image-20240712183429853" style="zoom:33%;" />
 
 # 注意事项
 

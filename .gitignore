@@ -13,5 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-./开发日志.txt
-./需求设计.txt
+开发日志.txt
+需求设计.txt

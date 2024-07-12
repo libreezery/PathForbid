@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/menu_forbid_permission"
+        android:title="禁用权限" />
+
+    <item
+        android:id="@+id/menu_enable_permission"
+        android:title="解除禁用" />
+</menu>

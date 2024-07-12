@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.禁止路径" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_night</item>
+        <item name="colorPrimaryDark">@color/primary_night</item>
+        <item name="colorAccent">@color/accent_night</item>
+        <item name="android:textColor">@color/white</item>
+
+        <item name="appBackgroundColor">@color/background_night</item>
+<!--        <item name="android:background">@color/background_night</item>-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary_night</item>
+    </style>
+</resources>

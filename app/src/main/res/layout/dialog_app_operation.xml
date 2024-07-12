@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AppName"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/dialogAppOperationAppName"/>
+
+    <TextView
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/dialogAppOperationAppPackageName"
+        android:text="com.test.android"/>
+
+
+    <RelativeLayout
+        android:clickable="true"
+        android:id="@+id/dialogAppOperationAppPrivatePath1"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:focusable="true">
+        <TextView
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="数据目录1"/>
+
+        <TextView
+            android:id="@+id/dialogAppOperationAppPrivatePath1Tv"
+            android:ellipsize="end"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:maxWidth="150dp"
+            android:text="/data/user/0/"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:clickable="true"
+        android:id="@+id/dialogAppOperationAppPrivatePath2"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:focusable="true">
+        <TextView
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="数据目录2"/>
+
+        <TextView
+            android:id="@+id/dialogAppOperationAppPrivatePath2Tv"
+            android:ellipsize="end"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:maxWidth="150dp"
+            android:text="/Android/"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/dialogAppOperationCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

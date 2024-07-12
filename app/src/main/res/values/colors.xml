@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_day">#99CCFF</color>
+    <color name="accent_day">#CCFFFF</color>
+    <color name="background_day">#fffffd</color>
+
+    <color name="background_night">#303030</color>
+    <color name="primary_night">#006699</color>
+    <color name="accent_night">#6699CC</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

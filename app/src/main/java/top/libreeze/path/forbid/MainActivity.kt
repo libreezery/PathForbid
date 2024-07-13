@@ -14,17 +14,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.apache.commons.io.FileUtils
 import top.libreeze.path.forbid.activity.AboutActivity
-import top.libreeze.path.forbid.activity.AppSettingsActivity
 import top.libreeze.path.forbid.adapter.ApplicationDataAdapter
+import top.libreeze.path.forbid.adapter.OnItemClickListener
 import top.libreeze.path.forbid.bean.ApplicationData
 import top.libreeze.path.forbid.utils.AppLogger
 import top.libreeze.path.forbid.utils.AppOperationDialog
 import top.libreeze.path.forbid.utils.AppTools
-import top.libreeze.path.forbid.utils.RootUtils
 import java.io.DataOutputStream
-import java.io.File
 
 class MainActivity : BaseActivity() {
 
@@ -51,21 +48,6 @@ class MainActivity : BaseActivity() {
 
         // 设置工具栏
         setSupportActionBar(findViewById(R.id.toolbar))
-
-        // 移动二进制文件
-        RootUtils.obtainCpuAbi().run {
-            assets.open(
-                if (this.contains("x86")) {
-                    "toybox-x86_64"
-                } else {
-                    "toybox"
-                }
-            ).let {
-                FileUtils.copyInputStreamToFile(it, File(RootUtils.toybox()))
-                RootUtils.setFilePermission(777, RootUtils.toybox())
-            }
-        }
-
 
         // 判断是否是第一次打开app
         if (appSettings.isFirstOpenApp) {
@@ -176,7 +158,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     for (data in mutableListOf) {
-                        if (data.appName.contains(newText, true)) {
+                        if (data.appName.contains(newText,true)) {
                             recyclerList.add(data)
                         }
                     }
@@ -206,8 +188,6 @@ class MainActivity : BaseActivity() {
             recyclerAdapter.notifyDataSetChanged()
         } else if (itemId == R.id.menu_about_app) {
             startActivity(Intent(this, AboutActivity::class.java))
-        } else if (itemId == R.id.menu_app_settings) {
-            startActivity(Intent(this, AppSettingsActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

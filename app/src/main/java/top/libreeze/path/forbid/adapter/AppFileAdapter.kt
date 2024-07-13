@@ -64,9 +64,9 @@ class AppFileAdapter(private val context: Context, private val data: MutableList
         if (appFile.permission == 500) {
             holder.filename.setTextColor(Color.RED)
         } else {
-            context.theme.obtainStyledAttributes(intArrayOf(R.attr.appTextColor)).let {
-                holder.filename.setTextColor(it.getColor(0,Color.BLACK))
-            }
+            holder.filename.setTextColor(
+                context.getColor(R.color.black)
+            )
         }
     }
 

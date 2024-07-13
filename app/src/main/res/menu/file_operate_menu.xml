@@ -10,8 +10,4 @@
     <item
         android:id="@+id/menu_enable_permission"
         android:title="解除禁用" />
-
-    <item
-        android:id="@+id/menu_delete_file"
-        android:title="删除文件" />
 </menu>

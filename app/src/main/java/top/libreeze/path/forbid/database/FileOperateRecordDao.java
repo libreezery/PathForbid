@@ -1,11 +1,9 @@
 package top.libreeze.path.forbid.database;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 
 import top.libreeze.path.forbid.App;
@@ -50,34 +48,6 @@ public class FileOperateRecordDao {
             DAO.delete(record);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-    }
-
-    /**
-     * 获取全部的记录
-     * @return List
-     */
-    public List<FileOperateRecord> findAll() {
-        try {
-            return DAO.queryForAll();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            AppLogger.error("获取全部记录失败:", throwables);
-        }
-        return null;
-    }
-
-    /**
-     * 全部删除
-     */
-    public void clearAll() {
-        DeleteBuilder<FileOperateRecord, Integer> fileOperateRecordIntegerDeleteBuilder = DAO.deleteBuilder();
-        try {
-            fileOperateRecordIntegerDeleteBuilder.where().isNotNull("filepath");
-            fileOperateRecordIntegerDeleteBuilder.delete();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            AppLogger.error("删除全部记录失败:", throwables);
         }
     }
 }

@@ -4,7 +4,7 @@
     <color name="accent_day">#CCFFFF</color>
     <color name="background_day">#fffffd</color>
 
-    <color name="background_night">#303030</color>
+    <color name="background_night">#7B7B7B</color>
     <color name="primary_night">#006699</color>
     <color name="accent_night">#6699CC</color>
     <color name="black">#FF000000</color>

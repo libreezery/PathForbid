@@ -5,6 +5,7 @@ import com.topjohnwu.superuser.Shell;
 import java.util.ArrayList;
 import java.util.List;
 
+import top.libreeze.path.forbid.App;
 import top.libreeze.path.forbid.bean.AppFile;
 
 public class RootUtils {
@@ -18,7 +19,7 @@ public class RootUtils {
     public static List<AppFile> listFiles(String filepath, AppFile parent) {
         ArrayList<AppFile> appFiles = new ArrayList<>();
         if (Shell.getShell().isRoot()) {
-            Shell.Result result = Shell.cmd("ls " + filepath).exec();
+            Shell.Result result = Shell.cmd(toybox() + " ls " + filepath).exec();
             if (result.isSuccess()) {
                 // 执行ls结果
                 if (!result.getOut().isEmpty()) {
@@ -28,7 +29,7 @@ public class RootUtils {
                     for (String filename : result.getOut()) {
                         String actual_path = filepath + filename;
                         if (parent != null) {
-                            appFiles.add(new AppFile(actual_path,parent));
+                            appFiles.add(new AppFile(actual_path, parent));
                             continue;
                         }
                         appFiles.add(new AppFile(actual_path));
@@ -40,7 +41,7 @@ public class RootUtils {
     }
 
     public static List<AppFile> listFiles(AppFile appFile) {
-        return listFiles(appFile.getFilepath(),appFile);
+        return listFiles(appFile.getFilepath(), appFile);
     }
 
     /**
@@ -51,7 +52,7 @@ public class RootUtils {
      */
     public static String obtainFileInfo(String filepath) {
         if (Shell.getShell().isRoot()) {
-            Shell.Result exec = Shell.cmd("stat -c '%a<>%F<>%n<>%s<>%X<>%Y' " + filepath).exec();
+            Shell.Result exec = Shell.cmd(toybox() + " stat -c '%a<>%F<>%n<>%s<>%X<>%Y' " + filepath).exec();
             if (exec.isSuccess()) {
                 // 成功则返回消息
                 return exec.getOut().get(0);
@@ -61,11 +62,27 @@ public class RootUtils {
     }
 
     /**
+     * 获取设备cpu架构
+     *
+     * @return cpu架构
+     */
+    public static String obtainCpuAbi() {
+        if (Shell.getShell().isRoot()) {
+            Shell.Result result = Shell.cmd("getprop ro.product.cpu.abi").exec();
+            if (result.isSuccess() || result.getOut().isEmpty()) {
+                return result.getOut().get(0);
+            }
+        }
+        return "arm-v7a";
+    }
+
+    /**
      * 设置文件夹权限为 500
+     *
      * @param filepath 文件路径
      * @return 是否成功
      */
-    public static boolean forbidFile(int permi, String filepath) {
+    public static boolean setFilePermission(int permi, String filepath) {
         if (Shell.getShell().isRoot()) {
             Shell.Result exec = Shell.cmd("chmod " + permi + " " + filepath).exec();
             return exec.isSuccess();
@@ -75,17 +92,35 @@ public class RootUtils {
 
     /**
      * 使用命令获取文件大小
+     *
      * @param path 文件路径
      * @return 大小
      */
     public static long getFileSize(String path) {
         if (Shell.getShell().isRoot()) {
-            Shell.Result exec = Shell.cmd("du -s " + path).exec();
+            Shell.Result exec = Shell.cmd(toybox() + " du -sb " + path).exec();
             if (exec.isSuccess() && !exec.getOut().isEmpty()) {
                 String s = exec.getOut().get(0);
                 return Long.parseLong(s.split("\t")[0]);
             }
         }
         return 0;
+    }
+
+    public static String toybox() {
+        return App.getContext().getFilesDir().getAbsolutePath() + "/toybox";
+    }
+
+    /**
+     * 删除文件夹或文件
+     * @param path 文件路径
+     * @return 是否成功
+     */
+    public static boolean deleteFile(String path) {
+        if (Shell.getShell().isRoot()) {
+            Shell.Result result = Shell.cmd(toybox() + " rm -rf " + path).exec();
+            return result.isSuccess();
+        }
+        return false;
     }
 }

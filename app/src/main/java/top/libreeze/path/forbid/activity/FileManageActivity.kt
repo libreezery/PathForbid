@@ -1,6 +1,7 @@
 package top.libreeze.path.forbid.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.PopupMenu
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,37 +68,63 @@ class FileManageActivity : BaseActivity() {
             PopupMenu(this@FileManageActivity, view).apply {
                 inflate(R.menu.file_operate_menu)
                 setOnMenuItemClickListener {
-                    if (it.itemId == R.id.menu_forbid_permission) {
-                        // 禁止应用权限
-                        val findByPath: FileOperateRecord? = recordDao.findByPath(fileData.filepath)
-                        if (findByPath != null) {
-                            toast("该文件夹已被禁用，请解除禁用")
-                        } else {
-                            val fileOperateRecord = FileOperateRecord(
-                                fileData.filepath,
-                                fileData.filename,
-                                appPkgName,
-                                fileData.permission,
-                                500
-                            )
-                            if (RootUtils.forbidFile(500, fileData.filepath)) {
-                                recordDao.add(fileOperateRecord)
-                                toast("禁用成功")
+                    when (it.itemId) {
+                        R.id.menu_forbid_permission -> {
+                            // 禁止应用权限
+                            val findByPath: FileOperateRecord? = recordDao.findByPath(fileData.filepath)
+                            if (findByPath != null) {
+                                toast("该文件夹已被禁用，请解除禁用")
                             } else {
-                                toast("禁用失败，请检查ROOT权限")
+                                val fileOperateRecord = FileOperateRecord(
+                                    fileData.filepath,
+                                    fileData.filename,
+                                    appPkgName,
+                                    fileData.permission,
+                                    500
+                                )
+                                if (RootUtils.setFilePermission(500, fileData.filepath)) {
+                                    recordDao.add(fileOperateRecord)
+                                    fileData.permission = 500
+                                    toast("禁用成功")
+                                } else {
+                                    toast("禁用失败，请检查ROOT权限")
+                                }
                             }
                         }
-                    } else if (it.itemId == R.id.menu_enable_permission) {
-                        val findByPath: FileOperateRecord? = recordDao.findByPath(fileData.filepath)
-                        if (findByPath == null) {
-                            toast("该文件没有被禁用，无需解除")
-                        } else {
-                            if (RootUtils.forbidFile(findByPath.originMode, findByPath.filepath)) {
-                                recordDao.delete(findByPath)
-                                toast("解除禁用成功")
+                        R.id.menu_enable_permission -> {
+                            val findByPath: FileOperateRecord? = recordDao.findByPath(fileData.filepath)
+                            if (findByPath == null) {
+                                toast("该文件没有被禁用，无需解除")
                             } else {
-                                toast("解除失败，请检查ROOT")
+                                if (RootUtils.setFilePermission(findByPath.originMode, findByPath.filepath)) {
+                                    fileData.permission = findByPath.originMode
+                                    recordDao.delete(findByPath)
+                                    toast("解除禁用成功")
+                                } else {
+                                    toast("解除失败，请检查ROOT")
+                                }
                             }
+                        }
+                        R.id.menu_delete_file -> {
+                            // 删除文件
+                            AlertDialog.Builder(this@FileManageActivity).apply {
+                                title = "警告"
+                                setMessage("删除文件/文件夹:\n\n ${fileData.filename} \n\n此操作无法撤销!")
+                                setPositiveButton("确定") { _, _ ->
+                                    fileData.deleteFile().run {
+                                        if (this) {
+                                            data.remove(fileData)
+                                            adapter.notifyItemRemoved(position)
+                                            adapter.notifyDataSetChanged()
+                                            toast("删除成功")
+                                        } else {
+                                            toast("删除失败")
+                                        }
+                                    }
+                                }
+                                setNegativeButton("取消",null)
+                                create()
+                            }.show()
                         }
                     }
                     adapter.notifyItemChanged(position)

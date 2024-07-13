@@ -48,9 +48,6 @@ public class AppFile {
         }
         // 获取文件大小
         fileSize = RootUtils.getFileSize(filepath);
-        if (isDirectory) {
-            fileSize -= 4;
-        }
 
     }
 
@@ -96,6 +93,10 @@ public class AppFile {
 
     public int getPermission() {
         return permission;
+    }
+
+    public void setPermission(int permission) {
+        this.permission = permission;
     }
 
     /**
@@ -150,6 +151,10 @@ public class AppFile {
             obtainChild();
         }
         return childFile;
+    }
+
+    public boolean deleteFile() {
+        return RootUtils.deleteFile(filepath);
     }
 
     public long getFileSize() {

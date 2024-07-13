@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:iconSpaceReserved="false"
+        android:summary="解除全部已禁用路径，卸载应用前请解除禁用"
+        android:title="全部解禁"
+        android:key="settings_all_enabled"/>
+
+    <Preference
+        android:key="settings_project_address"
+        app:iconSpaceReserved="false"
+        android:title="项目地址"
+        android:summary="查看项目的 Github 开源地址"/>
+
+    <Preference
+        android:key="settings_join_group"
+        app:iconSpaceReserved="false"
+        android:title="加入群聊"
+        android:summary="加入QQ群聊享受养老生活"/>
+</PreferenceScreen>

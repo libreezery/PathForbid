@@ -17,6 +17,10 @@
         android:title="显示系统应用"/>
 
     <item
+        android:id="@+id/menu_app_settings"
+        android:title="应用设置"/>
+
+    <item
         android:id="@+id/menu_about_app"
         android:title="关于应用"/>
 

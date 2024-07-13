@@ -3,4 +3,6 @@
 
     <attr name="appBackgroundColor" format="color"/>
 
+    <attr name="appTextColor" format="color"/>
+
 </resources>
